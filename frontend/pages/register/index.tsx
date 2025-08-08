@@ -3,7 +3,7 @@ import React, { useState, MouseEvent } from "react";
 import styles from "./register.module.css";
 import axios from "axios";
 
-const Index = () => {
+const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -51,7 +51,6 @@ const Index = () => {
           setError(true);
           setErrorMessage("Email already in use");
         } else {
-          console.error("Registration failed:", error);
           setError(true);
           setErrorMessage("Registration failed");
         }
@@ -62,7 +61,9 @@ const Index = () => {
   return (
     <>
       <Header />
+
       <div className={styles.main}>
+        <h2>Registration</h2>
         <input
           type="email"
           placeholder="email"
@@ -83,4 +84,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Registration;

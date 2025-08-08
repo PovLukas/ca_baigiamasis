@@ -11,7 +11,7 @@ const Header = () => {
                     <a href="/register">Registration</a>
                 </li>
                  <li>
-                    <a href="#">Login</a>
+                    <a href="/login">Login</a>
                 </li>
                  <li>
                     <a href="#">Questions</a>
