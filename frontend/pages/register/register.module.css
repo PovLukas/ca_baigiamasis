@@ -13,3 +13,12 @@
 .main button {
     padding: 0.6rem 1rem;
 }
+
+.success {
+    color: green;
+    
+}
+
+.error {
+    color: red;
+}
