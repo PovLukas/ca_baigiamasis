@@ -36,7 +36,7 @@ export const LOGIN_USER = async (req, res) => {
   const user = await UserModel.findOne({ email: req.body.email });
 
   if (!user) {
-    return res.status(401).json({
+    return res.status(404).json({
       message: "User provided wrong email",
     });
   }
