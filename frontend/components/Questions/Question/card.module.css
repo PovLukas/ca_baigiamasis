@@ -1,0 +1,27 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: blueviolet;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    
+}
+
+.wrapper img {
+    width: 25px;
+}
+
+.like {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
