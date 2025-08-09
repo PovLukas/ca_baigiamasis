@@ -4,13 +4,17 @@ import { QuestionType } from "@/types/question";
 import Card from "./Question/Card";
 import Button from "../Button/Button";
 import xSymbol from "../../assets/x-symbol-svgrepo-com.svg";
+import axios from "axios";
 
 type questionProps = {
   questions: QuestionType[];
+  refreshQuestions: () => void
 };
 
-const Wrapper = ({ questions }: questionProps) => {
+const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
   const [popUp, setPopUp] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [success, setSuccess] = useState(false)
 
   const onClickHidden = () => {
     setPopUp(true);
@@ -20,7 +24,32 @@ const Wrapper = ({ questions }: questionProps) => {
     setPopUp(false);
   };
 
-  const onClickSubmit = () => {};
+  const onClickSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      e.preventDefault();
+
+      const newQuestion = {
+        question: question,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3003/questions",
+        newQuestion
+      );
+
+      if (response.status === 201) {
+        console.log("Question submitted");
+        setQuestion("")
+        setSuccess(true)
+          setTimeout(() => {
+    setPopUp(false);
+  }, 2000);
+        refreshQuestions()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  };
 
   return (
     <>
@@ -35,9 +64,17 @@ const Wrapper = ({ questions }: questionProps) => {
                   <img src={xSymbol.src} alt="" />
                 </button>
               </div>
-              <input type="text" />
-              <div className={styles.submitWrapper}><Button onClick={onClickSubmit} title={"Submit question!"} /></div>
+              <input
+                type="text"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+              <div className={styles.submitWrapper}>
+                <Button onClick={onClickSubmit} title={"Submit question!"} />
+              </div>
+               {success && <p className={styles.success}>Question posted!</p>}
             </div>
+           
           </div>
         )}
       </div>

@@ -14,6 +14,8 @@ const Questions = () => {
     console.log(questions)
   }
 
+
+
   useEffect(() => {
     getQuestions()
   }, [])
@@ -21,7 +23,7 @@ const Questions = () => {
   return (
     <div>
         <Header />
-        <Wrapper questions={questions}/>
+        <Wrapper questions={questions} refreshQuestions={getQuestions}/>
     </div>
   )
 }
