@@ -5,7 +5,6 @@ import thumbsDown from "../../../assets/thumbs-down-svgrepo-com.svg";
 
 type questionProps = {
   question: string;
-  answer: [];
   liked: number;
   disliked: number;
 };
@@ -17,11 +16,15 @@ const Question = ({ liked, disliked, question }: questionProps) => {
       <div className={styles.wrapper}>
         <div className={styles.like}>
           {liked}
-          <img src={thumbsUp.src} alt="" />
+          <button>
+            <img src={thumbsUp.src} alt="" />
+          </button>
         </div>
         <div className={styles.like}>
           {disliked}
-          <img src={thumbsDown.src} alt="" />
+          <button>
+            <img src={thumbsDown.src} alt="" />
+          </button>
         </div>
       </div>
     </div>

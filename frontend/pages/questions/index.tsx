@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import styles from './questions.module.css'
 import Header from '@/components/Header/Header'
 import Wrapper from '@/components/Questions/Wrapper'
 import axios from 'axios'

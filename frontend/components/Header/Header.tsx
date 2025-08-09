@@ -1,25 +1,28 @@
-import React from 'react'
-import styles from './header.module.css'
+import React from "react";
+import styles from "./header.module.css";
+import Link from "next/link";
 
 const Header = () => {
   return (
     <div className={styles.main}>
-        <h2>Forumasz</h2>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/register">Registration</a>
-                </li>
-                 <li>
-                    <a href="/login">Login</a>
-                </li>
-                 <li>
-                    <a href="/questions">Questions</a>
-                </li>
-            </ul>
-        </nav>
+      <h2>Forumasz</h2>
+      <nav>
+        <ul>
+          <ul>
+            <li>
+              <Link href="/register">Registration</Link>
+            </li>
+            <li>
+              <Link href="/login">Login</Link>
+            </li>
+            <li>
+              <Link href="/questions">Questions</Link>
+            </li>
+          </ul>
+        </ul>
+      </nav>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
