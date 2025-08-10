@@ -34,3 +34,30 @@ export const GET_ALL_QUESTIONS = async (req, res) => {
 
   res.status(200).json({ allQuestions });
 };
+
+export const GET_SINGLE_QUESTION = async (req, res) => {
+  const id = req.params.id;
+
+  const question = await QuestionModel.findOne({ id: id });
+
+  if (question) {
+    return res.status(200).json({ message: question });
+  } else {
+    return res.status(404).json({ message: "No question with this ID" });
+  }
+};
+
+export const ANSWER_QUESTION = async (req, res) => {
+  const id = req.params.id;
+  const answer = req.body.answer;
+
+  const question = await QuestionModel.findOne({ id: id });
+
+  if (!question) {
+    return res.status(404).json({ message: "No question with this ID" });
+  } else {
+    question.answers.push(answer);
+    await question.save();
+    return res.status(200).json({ message: "Answer added", question });
+  }
+};
