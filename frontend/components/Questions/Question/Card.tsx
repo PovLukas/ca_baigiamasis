@@ -2,17 +2,27 @@ import React from "react";
 import styles from "./card.module.css";
 import thumbsUp from "../../../assets/thumbs-up-svgrepo-com.svg";
 import thumbsDown from "../../../assets/thumbs-down-svgrepo-com.svg";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
 
 type questionProps = {
   question: string;
   liked: number;
   disliked: number;
+  id: string
 };
 
-const Question = ({ liked, disliked, question }: questionProps) => {
+const Question = ({ liked, disliked, question, id }: questionProps) => {
+
+  const router = useRouter()
+
+
+
   return (
-    <div className={styles.main}>
-      <h2>{question}</h2>
+    <Link href={`questions/${id}`}
+     className={styles.main} >
+      <h2 className={styles.title}>{question}</h2>
       <div className={styles.wrapper}>
         <div className={styles.like}>
           {liked}
@@ -27,7 +37,7 @@ const Question = ({ liked, disliked, question }: questionProps) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

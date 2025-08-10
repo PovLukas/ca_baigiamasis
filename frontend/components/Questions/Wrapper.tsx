@@ -83,6 +83,7 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
           return (
             <Card
               key={e.id}
+              id={e.id}
               question={e.question}
               liked={e.liked}
               disliked={e.disliked}
