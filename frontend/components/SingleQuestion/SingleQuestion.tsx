@@ -18,9 +18,15 @@ const SingleQuestion = ({ question }: QuestionProps) => {
 
   const [deleted, setDeleted] = useState(false);
   const [answer, setAnswer] = useState("");
+  const [error, setError] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
+
+  const jwt = Cookies.get("@user_jwt");
 
   const onClick = async () => {
-    const jwt = Cookies.get("@user_jwt");
+    if (!jwt) {
+      return setDeleteError(true);
+    }
 
     try {
       await axios.delete(`http://localhost:3003/questions/${question.id}`, {
@@ -36,26 +42,58 @@ const SingleQuestion = ({ question }: QuestionProps) => {
   };
 
   const onAnswer = async () => {
-    
     if (!answer) {
-      return
+      return;
+    } else if (!jwt) {
+      return setError(true);
     } else {
-      await axios.put(`http://localhost:3003/questions/${question.id}`, {answer})
-      setAnswer("")
+      await axios.put(
+        `http://localhost:3003/questions/${question.id}`,
+        { answer },
+        { headers: { Authorization: jwt } }
+      );
+      setAnswer("");
     }
-   
-  }
+  };
+
+  const onClickLike = async () => {
+    try {
+      await axios.put(
+        `http://localhost:3003/questions/like/${question.id}`,
+        {},
+        { headers: { Authorization: jwt } }
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      }
+    }
+  };
+
+    const onClickDislike = async () => {
+    try {
+      await axios.put(
+        `http://localhost:3003/questions/dislike/${question.id}`,
+        {},
+        { headers: { Authorization: jwt } }
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      }
+    }
+  };
 
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
         <h2>{question.question}</h2>
         <div className={styles.btnWrap}>
-          <button>
+          <button onClick={onClickLike}>
             <span>{question.liked}</span>
             <img src={thumbsUp.src} alt="" />
           </button>
-          <button>
+          <button onClick={onClickDislike}>
             <span>{question.disliked}</span>
             <img src={thumbsDown.src} alt="" />
           </button>
@@ -63,19 +101,21 @@ const SingleQuestion = ({ question }: QuestionProps) => {
       </div>
       <div className={styles.deleteBtn}>
         <Button title={"Delete question!"} onClick={onClick} />
+        {deleteError && <p>Must login to delete question!</p>}
       </div>
       <Answer answer={question.answers} />
       <div className={styles.asnwerWrap}>
-      <input
-        type="text"
-        placeholder="Submit your answer"
-        value={answer}
-        onChange={(e) => {
-          setAnswer(e.target.value);
-        }}
-      ></input>
-      <Button title={"Submit question!"} onClick={onAnswer}/>
-      </div> 
+        <input
+          type="text"
+          placeholder="Submit your answer"
+          value={answer}
+          onChange={(e) => {
+            setAnswer(e.target.value);
+          }}
+        ></input>
+        <Button title={"Submit question!"} onClick={onAnswer} />
+      </div>
+      {error && <p>Must login to answer questions!</p>}
       {deleted && <p className={styles.warning}>Question deleted!</p>}
     </div>
   );

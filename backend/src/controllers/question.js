@@ -63,14 +63,61 @@ export const ANSWER_QUESTION = async (req, res) => {
 };
 
 export const DELETE_QUESTION = async (req, res) => {
-  const id = req.params.id
-  
-  const question = await QuestionModel.findOneAndDelete({id: id})
+  const id = req.params.id;
 
+  const question = await QuestionModel.findOneAndDelete({ id: id });
 
   if (!question) {
-    return res.status(404).json({message: "No question with this ID"})
+    return res.status(404).json({ message: "No question with this ID" });
   }
 
-  return res.status(200).json({message: `${question} was deleted`})
-}
+  return res.status(200).json({ message: `${question} was deleted` });
+};
+
+export const LIKE_QUESTION = async (req, res) => {
+  const id = req.params.id;
+  const userId = req.body.userId;
+
+  const question = await QuestionModel.findOne({ id: id });
+
+  const alreadyLiked = question.likedBy.includes(userId)
+
+  if (alreadyLiked) {
+    question.liked -= 1
+    question.likedBy = question.likedBy.filter(id => id !== userId);
+    await question.save()
+    return res.status(400).json({message: "already liekd"})
+  } else {
+
+    question.likedBy.push(userId);
+  question.liked += 1;
+  await question.save();
+  return res.status(200).json({ message: "Liked", userId });
+  }
+
+  
+};
+
+export const DISLIKE_QUESTION = async (req, res) => {
+  const id = req.params.id;
+  const userId = req.body.userId;
+
+  const question = await QuestionModel.findOne({ id: id });
+
+  const alreadyDisliked = question.dislikedBy.includes(userId)
+
+  if (alreadyDisliked) {
+    question.disliked += 1
+    question.dislikedBy = question.dislikedBy.filter(id => id !== userId);
+    await question.save()
+    return res.status(400).json({message: "already disliked"})
+  } else {
+
+    question.dislikedBy.push(userId);
+  question.disliked -= 1;
+  await question.save();
+  return res.status(200).json({ message: "Disliked", userId });
+  }
+
+  
+};

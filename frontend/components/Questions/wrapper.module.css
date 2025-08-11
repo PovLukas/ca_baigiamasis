@@ -68,3 +68,9 @@
     align-self: center;
     font-size: 1.2rem;
 }
+
+.failure {
+    align-self: center;
+    font-size: 1.2rem;
+    color: red;
+}

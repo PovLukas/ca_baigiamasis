@@ -5,6 +5,7 @@ import Card from "./Question/Card";
 import Button from "../Button/Button";
 import xSymbol from "../../assets/x-symbol-svgrepo-com.svg";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 type questionProps = {
   questions: QuestionType[];
@@ -15,6 +16,7 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
   const [popUp, setPopUp] = useState(false);
   const [question, setQuestion] = useState("");
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   const onClickHidden = () => {
     setPopUp(true);
@@ -24,7 +26,14 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
     setPopUp(false);
   };
 
+  const jwt = Cookies.get('@user_jwt')
+
   const onClickSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
+    if (!jwt) {
+      return setError(true)
+    }
+
     try {
       e.preventDefault();
 
@@ -34,7 +43,7 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
 
       const response = await axios.post(
         "http://localhost:3003/questions",
-        newQuestion
+        newQuestion, {headers: {Authorization: jwt}}
       );
 
       if (response.status === 201) {
@@ -72,6 +81,7 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
               <div className={styles.submitWrapper}>
                 <Button onClick={onClickSubmit} title={"Submit question!"} />
               </div>
+              {error && <p className={styles.failure}>Must login to post question!</p>}
                {success && <p className={styles.success}>Question posted!</p>}
             </div>
            
