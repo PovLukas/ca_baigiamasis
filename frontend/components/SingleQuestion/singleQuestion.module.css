@@ -22,3 +22,26 @@
 .btnWrap img {
     width: 25px;
 }
+
+.warning {
+    color: green;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.deleteBtn {
+    width: 200px;
+    margin: auto;
+}
+
+.main input {
+    padding: 2rem;
+    width: 400px;
+
+}
+
+.asnwerWrap {
+    align-self: center;
+    display: flex;
+    gap: 1rem;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { QuestionType } from "@/types/question";
 import Answer from "../Answer/Answer";
 import thumbsDown from "../../assets/thumbs-down-svgrepo-com.svg";
@@ -16,6 +16,9 @@ type QuestionProps = {
 const SingleQuestion = ({ question }: QuestionProps) => {
   const router = useRouter();
 
+  const [deleted, setDeleted] = useState(false);
+  const [answer, setAnswer] = useState("");
+
   const onClick = async () => {
     const jwt = Cookies.get("@user_jwt");
 
@@ -23,12 +26,25 @@ const SingleQuestion = ({ question }: QuestionProps) => {
       await axios.delete(`http://localhost:3003/questions/${question.id}`, {
         headers: { Authorization: jwt },
       });
-
-      router.push("/allQuestions");
+      setDeleted(true);
+      setTimeout(() => {
+        router.push("/allQuestions");
+      }, 2000);
     } catch (error) {
       console.error("Failed to delete question", error);
     }
   };
+
+  const onAnswer = async () => {
+    
+    if (!answer) {
+      return
+    } else {
+      await axios.put(`http://localhost:3003/questions/${question.id}`, {answer})
+      setAnswer("")
+    }
+   
+  }
 
   return (
     <div className={styles.main}>
@@ -45,8 +61,22 @@ const SingleQuestion = ({ question }: QuestionProps) => {
           </button>
         </div>
       </div>
-      <Button title={"Delete question!"} onClick={onClick} />
+      <div className={styles.deleteBtn}>
+        <Button title={"Delete question!"} onClick={onClick} />
+      </div>
       <Answer answer={question.answers} />
+      <div className={styles.asnwerWrap}>
+      <input
+        type="text"
+        placeholder="Submit your answer"
+        value={answer}
+        onChange={(e) => {
+          setAnswer(e.target.value);
+        }}
+      ></input>
+      <Button title={"Submit question!"} onClick={onAnswer}/>
+      </div> 
+      {deleted && <p className={styles.warning}>Question deleted!</p>}
     </div>
   );
 };
