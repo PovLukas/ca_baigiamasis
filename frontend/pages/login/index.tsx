@@ -3,6 +3,7 @@ import React, { useState, MouseEvent } from "react";
 import styles from "./login.module.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,10 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+   const router = useRouter()
+
   const onLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+   
     e.preventDefault();
 
     const user = {
@@ -28,7 +32,10 @@ const Login = () => {
         Cookies.set("@user_jwt", response.data.jwt);
         console.log("Login successfull:", response.data);
         setError(false);
-        setSuccess(true);
+        setSuccess(true)
+        setTimeout(() => {
+          router.push('/allQuestions')
+        }, 2000);;
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

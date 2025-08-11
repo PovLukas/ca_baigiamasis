@@ -61,3 +61,16 @@ export const ANSWER_QUESTION = async (req, res) => {
     return res.status(200).json({ message: "Answer added", question });
   }
 };
+
+export const DELETE_QUESTION = async (req, res) => {
+  const id = req.params.id
+  
+  const question = await QuestionModel.findOneAndDelete({id: id})
+
+
+  if (!question) {
+    return res.status(404).json({message: "No question with this ID"})
+  }
+
+  return res.status(200).json({message: `${question} was deleted`})
+}

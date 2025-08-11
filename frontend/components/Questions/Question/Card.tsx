@@ -25,16 +25,11 @@ const Question = ({ liked, disliked, question, id }: questionProps) => {
       <h2 className={styles.title}>{question}</h2>
       <div className={styles.wrapper}>
         <div className={styles.like}>
-          {liked}
-          <button>
-            <img src={thumbsUp.src} alt="" />
-          </button>
+          <p>Liked: {liked}</p>
+
         </div>
         <div className={styles.like}>
-          {disliked}
-          <button>
-            <img src={thumbsDown.src} alt="" />
-          </button>
+        <p>Disliked: {disliked}</p>
         </div>
       </div>
     </Link>

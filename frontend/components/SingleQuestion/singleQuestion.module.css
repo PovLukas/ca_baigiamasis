@@ -1,0 +1,24 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: aqua;
+    width: 600px;
+    padding: 2rem;
+    align-self: center;
+}
+
+.btnWrap {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btnWrap img {
+    width: 25px;
+}
