@@ -38,6 +38,38 @@ const Answer = ({ answers, questionId }: AnswerProps) => {
     }
   };
 
+   const onClickLike = async (e: string) => {
+    
+    try {
+      await axios.put(
+        `http://localhost:3003/questions/likeAnswer/${questionId}`,
+        {answerId: e
+        },
+        { headers: { Authorization: jwt } }
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      }
+    }
+  };
+
+     const onClickDislike = async (e: string) => {
+    
+    try {
+      await axios.put(
+        `http://localhost:3003/questions/dislikeAnswer/${questionId}`,
+        {answerId: e
+        },
+        { headers: { Authorization: jwt } }
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      }
+    }
+  };
+
   return (
     <div className={styles.main}>
       {answers.map((e) => {
@@ -48,11 +80,11 @@ const Answer = ({ answers, questionId }: AnswerProps) => {
               <Button title={"Delete answer"} onClick={() => onClick(e.id)} />
             </div>
             <div className={styles.btnWrap}>
-              <button>
+              <button onClick={()=> onClickLike(e.id)}>
                 <img src={thumbsUp.src} alt="" />
                 {e.liked}
               </button>
-              <button>
+              <button onClick={()=> onClickDislike(e.id)}>
                 <img src={thumbsDown.src} alt="" />
                 {e.disliked}
               </button>
