@@ -49,7 +49,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
     } else {
       await axios.put(
         `http://localhost:3003/questions/${question.id}`,
-        { answer: {text: answer} },
+        { answer: { text: answer } },
         { headers: { Authorization: jwt } }
       );
       setAnswer("");
@@ -70,7 +70,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
     }
   };
 
-    const onClickDislike = async () => {
+  const onClickDislike = async () => {
     try {
       await axios.put(
         `http://localhost:3003/questions/dislike/${question.id}`,
@@ -84,42 +84,43 @@ const SingleQuestion = ({ question }: QuestionProps) => {
     }
   };
 
-
   return (
-   <>
-    <div className={styles.main}>
-      <div className={styles.wrapper}>
-        <h2>{question.question}</h2>
-        <div className={styles.btnWrap}>
-          <button onClick={onClickLike}>
-            <span>{question.liked}</span>
-            <img src={thumbsUp.src} alt="" />
-          </button>
-          <button onClick={onClickDislike}>
-            <span>{question.disliked}</span>
-            <img src={thumbsDown.src} alt="" />
-          </button>
+    <>
+      <div className={styles.main}>
+        <div className={styles.wrapper}>
+          <h2>{question.question}</h2>
+          <div className={styles.btnWrap}>
+            <button onClick={onClickLike}>
+              <span>{question.liked}</span>
+              <img src={thumbsUp.src} alt="" />
+            </button>
+            <button onClick={onClickDislike}>
+              <span>{question.disliked}</span>
+              <img src={thumbsDown.src} alt="" />
+            </button>
+          </div>
         </div>
+        <div className={styles.deleteBtn}>
+          <Button title={"Delete question!"} onClick={onClick} />
+          {deleteError && <p>Must login to delete question!</p>}
+        </div>
+        <Answer answers={question.answers} questionId={question.id} />
+        <div className={styles.asnwerWrap}>
+          <input
+            type="text"
+            placeholder="Submit your answer"
+            value={answer}
+            onChange={(e) => {
+              setAnswer(e.target.value);
+            }}
+          ></input>
+          <div className={styles.submitAnswerBtn}>
+            <Button title={"Submit Answer!"} onClick={onAnswer} />
+          </div>
+        </div>
+        {error && <p>Must login to answer questions!</p>}
+        {deleted && <p className={styles.warning}>Question deleted!</p>}
       </div>
-      <div className={styles.deleteBtn}>
-        <Button title={"Delete question!"} onClick={onClick} />
-        {deleteError && <p>Must login to delete question!</p>}
-      </div>
-      <Answer answers={question.answers} questionId={question.id} />
-      <div className={styles.asnwerWrap}>
-        <input
-          type="text"
-          placeholder="Submit your answer"
-          value={answer}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-          }}
-        ></input>
-        <Button title={"Submit question!"} onClick={onAnswer} />
-      </div>
-      {error && <p>Must login to answer questions!</p>}
-      {deleted && <p className={styles.warning}>Question deleted!</p>}
-    </div>
     </>
   );
 };

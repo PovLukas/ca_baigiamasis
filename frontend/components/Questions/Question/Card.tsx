@@ -1,8 +1,5 @@
 import React from "react";
 import styles from "./card.module.css";
-import thumbsUp from "../../../assets/thumbs-up-svgrepo-com.svg";
-import thumbsDown from "../../../assets/thumbs-down-svgrepo-com.svg";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 
@@ -14,9 +11,6 @@ type questionProps = {
 };
 
 const Question = ({ liked, disliked, question, id }: questionProps) => {
-
-  const router = useRouter()
-
 
 
   return (

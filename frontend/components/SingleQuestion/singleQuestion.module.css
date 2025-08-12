@@ -8,15 +8,18 @@
 .wrapper {
     display: flex;
     justify-content: space-between;
-    background-color: aqua;
+    background-color: rgb(238, 243, 243);
     width: 600px;
     padding: 2rem;
     align-self: center;
+    border-radius: 8px;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .btnWrap {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .btnWrap img {
@@ -35,8 +38,10 @@
 }
 
 .main input {
-    padding: 2rem;
+    padding: 1.5rem;
     width: 400px;
+    border-radius: 18px;
+      font-size: 1rem;
 
 }
 
@@ -44,4 +49,12 @@
     align-self: center;
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitAnswerBtn {
+    height: 30px;
+    height: auto; 
+    
 }

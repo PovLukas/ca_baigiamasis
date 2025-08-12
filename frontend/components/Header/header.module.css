@@ -3,15 +3,16 @@
     justify-content: space-between;
     height: 100px;
     align-items: center;
-    background-color: rgb(145, 235, 190);
+    background-color: rgb(15, 130, 140);
     padding: 0 2rem;
+    color: rgb(255, 253, 253);
 }
 
 
 .main nav ul li a {
     
     text-decoration: none;
-    color: black;
+    color: rgb(255, 253, 253);
     font-size: 1.1rem;
 }
 
@@ -19,4 +20,5 @@
     list-style: none;
     display: flex;
     gap: 2rem;
+   ;
 }

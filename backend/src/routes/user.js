@@ -1,5 +1,4 @@
 import express from "express";
-import auth from "../middlewares/auth.js";
 import {
   INSERT_USER,
   LOGIN_USER,

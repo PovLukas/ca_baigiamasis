@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import Header from '@/components/Header/Header'
-import Wrapper from '@/components/Questions/Wrapper'
-import axios from 'axios'
-import { QuestionType } from '@/types/question'
+import React, { useEffect, useState } from "react";
+import Header from "@/components/Header/Header";
+import Wrapper from "@/components/Questions/Wrapper";
+import axios from "axios";
+import { QuestionType } from "@/types/question";
 
 const Questions = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
 
   const getQuestions = async () => {
-    const response = await axios.get("http://localhost:3003/questions")
+    const response = await axios.get("http://localhost:3003/questions");
 
-     setQuestions(response.data.allQuestions)
-    console.log(questions)
-  }
-
-
+    setQuestions(response.data.allQuestions);
+  };
 
   useEffect(() => {
-    getQuestions()
-  }, [])
+    getQuestions();
+  }, []);
 
   return (
     <div>
-        <Header />
-        <Wrapper questions={questions} refreshQuestions={getQuestions}/>
+      <Header />
+      <Wrapper questions={questions} refreshQuestions={getQuestions} />
     </div>
-  )
-}
+  );
+};
 
-export default Questions
+export default Questions;

@@ -7,8 +7,10 @@ type ButtonProps = {
 }
 
 const Button = ({title, onClick}:ButtonProps) => {
+
+  
   return (
-    <button onClick={onClick} className={styles.btn}>{title}</button>
+    <button onClick={onClick} className={styles.button8}>{title}</button>
   )
 }
 

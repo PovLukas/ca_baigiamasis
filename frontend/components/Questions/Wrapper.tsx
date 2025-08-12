@@ -21,7 +21,7 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
   const [filterAnswered, setFilterAnswered] = useState(false);
   const [filteredUnanswered, setFilteredUnanswered] = useState(false);
 
-  const onClickHidden = () => {
+  const onClickPopUp = () => {
     setPopUp(true);
   };
 
@@ -67,28 +67,31 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
   const unAnsweredQuestions = questions.filter((q) => q.answers.length === 0);
 
   const onClickFilterAnswered = () => {
-    setNofilter(false);
-    setFilteredUnanswered(false);
-    setFilterAnswered(true);
+    if (filterAnswered === true) {
+      setNofilter(true);
+      return setFilterAnswered(false);
+    } else {
+      setNofilter(false);
+      setFilteredUnanswered(false);
+      setFilterAnswered(true);
+    }
   };
 
   const onClickFilterUnanswered = () => {
+    if (filteredUnanswered === true) {
+      setNofilter(true);
+      return setFilteredUnanswered(false);
+    }
     setNofilter(false);
     setFilterAnswered(false);
     setFilteredUnanswered(true);
-  };
-
-  const onClickAllQuestions = () => {
-    setFilterAnswered(false);
-    setFilteredUnanswered(false);
-    setNofilter(true);
   };
 
   return (
     <>
       <div className={styles.buttonWrapper}>
         <div className={styles.questionBtnWrap}>
-          <Button onClick={onClickHidden} title={"Ask your question"} />
+          <Button onClick={onClickPopUp} title={"Ask your question"} />
           <Button
             title={"Answered questions"}
             onClick={onClickFilterAnswered}
@@ -97,7 +100,6 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
             title={"Unanswered questions"}
             onClick={onClickFilterUnanswered}
           />
-          <Button title={"All questions!"} onClick={onClickAllQuestions} />
         </div>
         {popUp && (
           <div className={styles.hidden}>
