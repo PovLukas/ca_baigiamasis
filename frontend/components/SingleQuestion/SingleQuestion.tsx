@@ -37,7 +37,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
         router.push("/allQuestions");
       }, 2000);
     } catch (error) {
-      console.error("Failed to delete question", error);
+      console.error(error);
     }
   };
 
@@ -84,7 +84,9 @@ const SingleQuestion = ({ question }: QuestionProps) => {
     }
   };
 
+
   return (
+   <>
     <div className={styles.main}>
       <div className={styles.wrapper}>
         <h2>{question.question}</h2>
@@ -118,6 +120,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
       {error && <p>Must login to answer questions!</p>}
       {deleted && <p className={styles.warning}>Question deleted!</p>}
     </div>
+    </>
   );
 };
 

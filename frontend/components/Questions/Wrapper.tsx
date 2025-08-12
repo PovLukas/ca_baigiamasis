@@ -9,14 +9,17 @@ import Cookies from "js-cookie";
 
 type questionProps = {
   questions: QuestionType[];
-  refreshQuestions: () => void
+  refreshQuestions: () => void;
 };
 
-const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
+const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
   const [popUp, setPopUp] = useState(false);
   const [question, setQuestion] = useState("");
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [noFilter, setNofilter] = useState(true);
+  const [filterAnswered, setFilterAnswered] = useState(false);
+  const [filteredUnanswered, setFilteredUnanswered] = useState(false);
 
   const onClickHidden = () => {
     setPopUp(true);
@@ -26,12 +29,11 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
     setPopUp(false);
   };
 
-  const jwt = Cookies.get('@user_jwt')
+  const jwt = Cookies.get("@user_jwt");
 
   const onClickSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-
     if (!jwt) {
-      return setError(true)
+      return setError(true);
     }
 
     try {
@@ -43,27 +45,60 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
 
       const response = await axios.post(
         "http://localhost:3003/questions",
-        newQuestion, {headers: {Authorization: jwt}}
+        newQuestion,
+        { headers: { Authorization: jwt } }
       );
 
       if (response.status === 201) {
         console.log("Question submitted");
-        setQuestion("")
-        setSuccess(true)
-          setTimeout(() => {
-    setPopUp(false);
-  }, 2000);
-        refreshQuestions()
+        setQuestion("");
+        setSuccess(true);
+        setTimeout(() => {
+          setPopUp(false);
+        }, 2000);
+        refreshQuestions();
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
+  };
+
+  const answeredQuestions = questions.filter((q) => q.answers.length > 0);
+  const unAnsweredQuestions = questions.filter((q) => q.answers.length === 0);
+
+  const onClickFilterAnswered = () => {
+    setNofilter(false);
+    setFilteredUnanswered(false);
+    setFilterAnswered(true);
+  };
+
+  const onClickFilterUnanswered = () => {
+    setNofilter(false);
+    setFilterAnswered(false);
+    setFilteredUnanswered(true);
+  };
+
+  const onClickAllQuestions = () => {
+    setFilterAnswered(false);
+    setFilteredUnanswered(false);
+    setNofilter(true);
   };
 
   return (
     <>
       <div className={styles.buttonWrapper}>
-        <Button onClick={onClickHidden} title={"Ask your question"} />
+        <div className={styles.questionBtnWrap}>
+          <Button onClick={onClickHidden} title={"Ask your question"} />
+          <Button
+            title={"Answered questions"}
+            onClick={onClickFilterAnswered}
+          />
+          <Button
+            title={"Unanswered questions"}
+            onClick={onClickFilterUnanswered}
+          />
+          <Button title={"All questions!"} onClick={onClickAllQuestions} />
+        </div>
         {popUp && (
           <div className={styles.hidden}>
             <div className={styles.hiddenMain}>
@@ -81,26 +116,59 @@ const Wrapper = ({ questions, refreshQuestions  }: questionProps) => {
               <div className={styles.submitWrapper}>
                 <Button onClick={onClickSubmit} title={"Submit question!"} />
               </div>
-              {error && <p className={styles.failure}>Must login to post question!</p>}
-               {success && <p className={styles.success}>Question posted!</p>}
+              {error && (
+                <p className={styles.failure}>Must login to post question!</p>
+              )}
+              {success && <p className={styles.success}>Question posted!</p>}
             </div>
-           
           </div>
         )}
       </div>
-      <div className={styles.main}>
-        {questions.map((e) => {
-          return (
-            <Card
-              key={e.id}
-              id={e.id}
-              question={e.question}
-              liked={e.liked}
-              disliked={e.disliked}
-            />
-          );
-        })}
-      </div>
+      {noFilter && (
+        <div className={styles.main}>
+          {questions.map((e) => {
+            return (
+              <Card
+                key={e.id}
+                id={e.id}
+                question={e.question}
+                liked={e.liked}
+                disliked={e.disliked}
+              />
+            );
+          })}
+        </div>
+      )}
+      {filterAnswered && (
+        <div className={styles.main}>
+          {answeredQuestions.map((e) => {
+            return (
+              <Card
+                key={e.id}
+                id={e.id}
+                question={e.question}
+                liked={e.liked}
+                disliked={e.disliked}
+              />
+            );
+          })}
+        </div>
+      )}
+      {filteredUnanswered && (
+        <div className={styles.main}>
+          {unAnsweredQuestions.map((e) => {
+            return (
+              <Card
+                key={e.id}
+                id={e.id}
+                question={e.question}
+                liked={e.liked}
+                disliked={e.disliked}
+              />
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };

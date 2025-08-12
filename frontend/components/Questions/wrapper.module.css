@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     padding-top: 2rem ;
+ 
 }
 .hiddenMainWrapper {
     display: flex;
@@ -73,4 +74,9 @@
     align-self: center;
     font-size: 1.2rem;
     color: red;
+}
+
+.questionBtnWrap {
+    display: flex;
+    gap: 1rem;
 }
