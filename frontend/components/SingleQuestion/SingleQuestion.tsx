@@ -49,7 +49,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
     } else {
       await axios.put(
         `http://localhost:3003/questions/${question.id}`,
-        { answer },
+        { answer: {text: answer} },
         { headers: { Authorization: jwt } }
       );
       setAnswer("");
@@ -103,7 +103,7 @@ const SingleQuestion = ({ question }: QuestionProps) => {
         <Button title={"Delete question!"} onClick={onClick} />
         {deleteError && <p>Must login to delete question!</p>}
       </div>
-      <Answer answer={question.answers} />
+      <Answer answers={question.answers} questionId={question.id} />
       <div className={styles.asnwerWrap}>
         <input
           type="text"

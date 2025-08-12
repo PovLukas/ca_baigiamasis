@@ -1,5 +1,5 @@
 import express from "express";
-import { INSERT_QUESTION, GET_ALL_QUESTIONS, GET_SINGLE_QUESTION, ANSWER_QUESTION, DELETE_QUESTION, LIKE_QUESTION, DISLIKE_QUESTION } from "../controllers/question.js";
+import { INSERT_QUESTION, GET_ALL_QUESTIONS, GET_SINGLE_QUESTION, ANSWER_QUESTION, DELETE_QUESTION, LIKE_QUESTION, DISLIKE_QUESTION, DELETE_ANSWER } from "../controllers/question.js";
 import auth from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -17,5 +17,7 @@ router.delete("/:id", auth, DELETE_QUESTION)
 router.put('/like/:id', auth, LIKE_QUESTION);
 
 router.put('/dislike/:id',auth, DISLIKE_QUESTION);
+
+router.delete("/:id/answer", auth, DELETE_ANSWER)
 
 export default router

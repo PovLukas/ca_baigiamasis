@@ -50,13 +50,23 @@ export const GET_SINGLE_QUESTION = async (req, res) => {
 export const ANSWER_QUESTION = async (req, res) => {
   const id = req.params.id;
   const answer = req.body.answer;
+  const newAnswer = {
+      id: uuidv4(),
+      liked: 0,
+      disliked: 0,
+      text: answer.text,
+      createdAt: new Date(),
+      likedBy: [],
+      dislikedBy: []
+
+  }
 
   const question = await QuestionModel.findOne({ id: id });
 
   if (!question) {
     return res.status(404).json({ message: "No question with this ID" });
   } else {
-    question.answers.push(answer);
+    question.answers.push(newAnswer);
     await question.save();
     return res.status(200).json({ message: "Answer added", question });
   }
@@ -73,6 +83,26 @@ export const DELETE_QUESTION = async (req, res) => {
 
   return res.status(200).json({ message: `${question} was deleted` });
 };
+
+export const DELETE_ANSWER = async (req, res) => {
+  const questionId = req.params.id
+  const answerId = req.body.id
+
+   const question = await QuestionModel.findOne({ id: questionId });
+
+   const initialLength = question.answers.length;
+    question.answers = question.answers.filter(ans => ans.id !== answerId);
+
+    if (question.answers.length === initialLength) {
+     
+      return res.status(404).json({ message: "No answer with this ID" });
+    } else {
+      await question.save();
+      return res.status(200).json({message: "Answer was deleted"})
+    }
+
+};
+
 
 export const LIKE_QUESTION = async (req, res) => {
   const id = req.params.id;
