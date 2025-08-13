@@ -35,3 +35,13 @@
     overflow: hidden;
     cursor: pointer;
 }
+
+.titleWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.titleWrap h3 {
+    color: rgb(221, 213, 213);
+}

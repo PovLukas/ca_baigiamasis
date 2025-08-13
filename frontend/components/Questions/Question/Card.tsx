@@ -8,15 +8,19 @@ type questionProps = {
   liked: number;
   disliked: number;
   id: string
+  answerLength: number
 };
 
-const Question = ({ liked, disliked, question, id }: questionProps) => {
+const Question = ({ liked, disliked, question, id, answerLength }: questionProps) => {
 
 
   return (
     <Link href={`questions/${id}`}
      className={styles.main} >
+      <div className={styles.titleWrap}>
       <h2 className={styles.title}>{question}</h2>
+      <h3>Replies: {answerLength}</h3>
+      </div>
       <div className={styles.wrapper}>
         <div className={styles.like}>
           <p>Liked: {liked}</p>

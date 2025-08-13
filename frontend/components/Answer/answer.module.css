@@ -1,28 +1,50 @@
 .main {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    
-    
+    gap: 1rem;    
 }
 
 .mainItems {
 height: 150px;
-background-color: violet;
+background-color: #90bde2;
     padding: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+     border-radius: 18px;
+      box-shadow: rgba(207, 206, 206, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     
 }
 
+.btnWrap button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 42px;
+    gap: 0.4rem;
+}
+
+
 .btnWrap {
     display: flex;
-    gap: 0.5rem;
-
+    gap: 1rem;
+    background-color: none;
+    
 }
 
 .btnWrap img {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
+    
+}
+
+.titleWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.titleWrap button {
+    width: 140px;
 }

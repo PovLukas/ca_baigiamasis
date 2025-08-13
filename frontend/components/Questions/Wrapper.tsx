@@ -134,6 +134,7 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
                 key={e.id}
                 id={e.id}
                 question={e.question}
+                answerLength={e.answers.length}
                 liked={e.liked}
                 disliked={e.disliked}
               />
@@ -149,6 +150,7 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
                 key={e.id}
                 id={e.id}
                 question={e.question}
+                answerLength={e.answers.length}
                 liked={e.liked}
                 disliked={e.disliked}
               />
@@ -164,6 +166,7 @@ const Wrapper = ({ questions, refreshQuestions }: questionProps) => {
                 key={e.id}
                 id={e.id}
                 question={e.question}
+                answerLength={e.answers.length}
                 liked={e.liked}
                 disliked={e.disliked}
               />

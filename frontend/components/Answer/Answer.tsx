@@ -75,8 +75,8 @@ const Answer = ({ answers, questionId }: AnswerProps) => {
       {answers.map((e) => {
         return (
           <div className={styles.mainItems} key={e.id}>
-            <div>
-              <h2>{e.text}</h2>
+            <div className={styles.titleWrap}>
+              <h3>{e.text}</h3>
               <Button title={"Delete answer"} onClick={() => onClick(e.id)} />
             </div>
             <div className={styles.btnWrap}>

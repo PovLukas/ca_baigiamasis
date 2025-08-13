@@ -5,10 +5,19 @@
     gap: 2rem;
 }
 
+.btnWrap button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 42px;
+}
+
 .wrapper {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(238, 243, 243);
+    background-color: #6A7FDB;
     width: 600px;
     padding: 2rem;
     align-self: center;
@@ -58,3 +67,4 @@
     height: auto; 
     
 }
+

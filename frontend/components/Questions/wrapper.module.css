@@ -19,8 +19,8 @@
 
 .hidden {
     width: 800px;
-    height: 400px;
-    background-color: bisque;
+    height: 350px;
+    background-color: #c9b9ff;
      border-radius: 8px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     position: fixed;
@@ -30,6 +30,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    border-radius: 16px;
 }
 
 
@@ -62,7 +63,6 @@
 
 .submitWrapper {
     align-self: center;
-    width: 200px;
 }
 
 .success {
@@ -80,4 +80,17 @@
 .questionBtnWrap {
     display: flex;
     gap: 1rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .hidden {
+   width: 600px;
+   height: 200px;
+  }
 }

@@ -91,12 +91,12 @@ const SingleQuestion = ({ question }: QuestionProps) => {
           <h2>{question.question}</h2>
           <div className={styles.btnWrap}>
             <button onClick={onClickLike}>
-              <span>{question.liked}</span>
               <img src={thumbsUp.src} alt="" />
+              <span>{question.liked}</span>
             </button>
             <button onClick={onClickDislike}>
-              <span>{question.disliked}</span>
               <img src={thumbsDown.src} alt="" />
+              <span>{question.disliked}</span>
             </button>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Cookies from "js-cookie";
 import SingleQuestion from "@/components/SingleQuestion/SingleQuestion";
+import { nunito } from "@/helpers/fonts";
 
 
 const QuestionDetailPage = () => {
@@ -35,7 +36,7 @@ useEffect(()=>{
   return (
     <>
       <Header />
-      {noToken && <p className={styles.warning}>You need to login!</p>}
+      {noToken && <p className={`${styles.warning} ${nunito.className}`}>You need to login!</p>}
       {question && <SingleQuestion question={question} />}
     </>
   );
